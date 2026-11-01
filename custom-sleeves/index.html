@@ -726,12 +726,14 @@ document.addEventListener('DOMContentLoaded',function(){
   var mq=matchMedia('(max-aspect-ratio: 1/1)');
   var still=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function pick(){
-    var m=mq.matches,src=m?'/video/hero-mobile.mp4':'/video/hero-desktop.mp4';
+    var m=mq.matches,src=m?'/video/hero-mobile-v3.mp4':'/video/hero-desktop-v3.mp4';
     v.poster=m?'/img/hero-mobile.webp':'/img/hero-desktop.webp';
     if(still){v.removeAttribute('autoplay');return;}
     if(v.dataset.src===src)return;
-    v.dataset.src=src;v.src=src;v.load();
-    var p=v.play();if(p&&p.catch)p.catch(function(){});
+    v.dataset.src=src;v.preload='auto';v.src=src;v.load();
+    /* keep the still image up until enough video has downloaded to play smoothly */
+    var go=function(){v.removeEventListener('canplaythrough',go);var p=v.play();if(p&&p.catch)p.catch(function(){});};
+    if(v.readyState>=4)go();else v.addEventListener('canplaythrough',go);
   }
   if(mq.addEventListener)mq.addEventListener('change',pick);else if(mq.addListener)mq.addListener(pick);
   pick();
