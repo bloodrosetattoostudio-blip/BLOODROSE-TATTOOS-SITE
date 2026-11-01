@@ -1,0 +1,13 @@
+# Old WordPress links -> sections of the new site (keeps Google traffic)
+/our-tattoo-artists        /#artists   301
+/our-tattoo-artists/*      /#artists   301
+/contact-us                /#studios   301
+/contact                   /#studios   301
+/about-us                  /           301
+/about                     /           301
+/gallery                   /#work      301
+/blog                      /           302
+/blog/*                    /           302
+
+# www -> bloodrosetattoo.com is handled by a Cloudflare Redirect Rule
+# (Cloudflare Pages _redirects only supports paths, not whole domains)
