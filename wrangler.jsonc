@@ -1,0 +1,8 @@
+{
+  // Cloudflare config: serve this folder as a static website
+  "name": "bloodrose-tattoos-site",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "."
+  }
+}
