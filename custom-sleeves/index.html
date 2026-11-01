@@ -477,6 +477,22 @@ a.poster:hover h3 .it{color:var(--red-hi)}
 }
 </style>
 
+<style id="motion">
+/* Motion layer: scroll reveals, hero entrance, gallery drift (desktop). Turned off for "reduce motion" users. */
+.js-motion .rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.1,1),transform .8s cubic-bezier(.2,.7,.1,1);transition-delay:var(--d,0s)}
+.js-motion .rv.in{opacity:1;transform:none}
+.js-motion .shot.rv{transform:translateY(40px) scale(.96)}
+.js-motion .shot.rv.in{transform:none}
+.js-motion .hero-copy>*{opacity:0;transform:translateY(26px)}
+.hero-go .hero-copy>*{animation:heroUp .9s cubic-bezier(.2,.7,.1,1) forwards}
+.hero-go .hero-copy>*:nth-child(2){animation-delay:.15s}
+.hero-go .hero-copy>*:nth-child(3){animation-delay:.3s}
+@keyframes heroUp{to{opacity:1;transform:none}}
+.shot img,.a-photo img{transition:transform .7s cubic-bezier(.2,.7,.1,1)}
+@media (hover:hover){.shot:hover img,.a-card:hover .a-photo img{transform:scale(1.05)}}
+@media (min-width:1100px){.cols .col{will-change:transform}}
+@media (prefers-reduced-motion:reduce){.js-motion .rv,.js-motion .hero-copy>*{opacity:1!important;transform:none!important;animation:none!important}}
+</style>
 </head>
 <body data-page="custom-sleeves">
 <div class="sub standalone" id="custom-sleeves" role="main" aria-labelledby="slTitle">
@@ -798,5 +814,35 @@ function waLink(city,text){var n=(WHATSAPP[city]||WHATSAPP["Koregaon Park, Pune"
 })();
 </script>
 
+<script id="motion-js">
+/* Motion layer */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
+  document.documentElement.classList.add('js-motion');
+  /* hero text rises in once the intro screen has gone */
+  var intro=document.getElementById('intro'), root=document.documentElement;
+  function heroGo(){root.classList.add('hero-go');}
+  if(!intro||!intro.parentNode)heroGo();
+  else{var mo=new MutationObserver(function(){if(!document.getElementById('intro')){mo.disconnect();heroGo();}});mo.observe(intro.parentNode,{childList:true});setTimeout(heroGo,9000);}
+  var sel='.big-head,.ed-sticky,.shot,.artists-head,.a-card,.studio,.carousel,.offer-ctas,.offer-img,.faq2-l,.faq2-r,.seo-faq h2,.seo-faq details';
+  var els=[].slice.call(document.querySelectorAll(sel));
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  els.forEach(function(el){
+    /* stagger items that sit side by side */
+    var sibs=el.parentNode?[].filter.call(el.parentNode.children,function(c){return c.matches&&c.matches(sel);}):[];
+    var i=sibs.indexOf(el); if(i>0)el.style.setProperty('--d',Math.min(i,6)*0.08+'s');
+    el.classList.add('rv'); io.observe(el);
+  });
+  /* gallery columns drift in opposite directions while scrolling (wide screens only) */
+  var cols=document.querySelectorAll('.cols .col'), wide=matchMedia('(min-width: 1100px)'), ticking=false;
+  function drift(){ticking=false; if(!cols.length)return;
+    if(!wide.matches){[].forEach.call(cols,function(c){c.style.transform='';});return;}
+    var box=cols[0].parentNode.getBoundingClientRect(), vh=innerHeight;
+    var p=Math.max(-1,Math.min(1,(vh/2-(box.top+box.height/2))/(vh/2+box.height/2)));
+    [].forEach.call(cols,function(c,i){c.style.transform='translate3d(0,'+((i%2?1:-1)*p*40).toFixed(1)+'px,0)';});}
+  addEventListener('scroll',function(){if(!ticking){ticking=true;requestAnimationFrame(drift);}},{passive:true});
+  addEventListener('resize',drift); drift();
+})();
+</script>
 </body>
 </html>
