@@ -73,6 +73,7 @@
 *{box-sizing:border-box}
 html{background:var(--ink);scroll-behavior:smooth}
 body{background:var(--ink);color:var(--bone);font-family:var(--f-head);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,select,textarea{font-family:inherit}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:90;background:var(--ink)}
 body.lock{overflow:hidden}
 a{color:inherit;text-decoration:none}
@@ -81,7 +82,7 @@ h1,h2,h3{margin:0;font-family:var(--f-head);font-weight:800;letter-spacing:-.045
 .it{font-family:var(--f-it);font-style:italic;font-weight:400;letter-spacing:-.02em}
 .red{color:var(--red-hi)}
 .wrap{max-width:1320px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
-.label{font-family:var(--f-label);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.label{font-family:var(--f-label);font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
 :focus-visible{outline:2px solid var(--red-hi);outline-offset:3px}
 
 /* Grain */
