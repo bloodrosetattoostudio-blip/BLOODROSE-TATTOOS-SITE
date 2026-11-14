@@ -173,6 +173,7 @@ h1,h2,h3{margin:0;font-family:var(--f-head);font-weight:800;letter-spacing:-.045
 .artists-head h2 b{font-weight:900;letter-spacing:-.06em}
 .artists-head p{justify-self:end;max-width:40ch;color:#CFCAC2;font-weight:300}
 .a-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2vw,26px);padding-top:clamp(40px,5vw,64px)}
+a.a-card{display:block;color:inherit;text-decoration:none}a.a-card .a-port{color:var(--red-hi)}a.a-card:focus-visible{outline:2px solid var(--red-hi);outline-offset:4px}
 .a-card:nth-child(even){margin-top:clamp(60px,9vw,130px)}
 .a-poster{position:relative;aspect-ratio:3/4;background:radial-gradient(60% 45% at 50% 30%,rgba(242,238,232,.16),transparent 70%),linear-gradient(180deg,#1b1b1d,#060607);overflow:hidden}
 .a-poster .first{position:absolute;top:8%;left:0;right:0;text-align:center;font-weight:900;font-size:clamp(46px,6.2vw,92px);letter-spacing:-.06em;line-height:.85;color:rgba(242,238,232,.13);text-transform:uppercase}
@@ -695,11 +696,11 @@ a.poster:hover h3 .it{color:var(--red-hi)}
           <div class="a-meta"><b>Amar</b><span class="label red">Master of geometry</span></div>
           <div class="a-sub"><span class="label">Geometry · Mandala</span><span class="label">8+ yrs</span></div>
         </div>
-        <div class="a-card" data-artist="omkar">
+        <a class="a-card" data-artist="omkar" href="/artists/omkar/" aria-label="Omkar, master of portrait. View his portfolio">
           <div class="a-photo"><img src="/img/omkar-portrait-tattoo-artist-bloodrose-tattoos.webp" alt="Omkar, master of portrait at Bloodrose Tattoos" loading="lazy"></div>
           <div class="a-meta"><b>Omkar</b><span class="label red">Master of portrait</span></div>
-          <div class="a-sub"><span class="label">Portraits · Pune</span><span class="label">12 yrs</span></div>
-        </div>
+          <div class="a-sub"><span class="label">Portraits · 12 yrs</span><span class="label a-port">View portfolio →</span></div>
+        </a>
       </div>
     </div>
   </section>
