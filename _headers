@@ -8,3 +8,10 @@
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# Unlisted artist page (link-only): keep it out of Google
+/artists/rinku
+  X-Robots-Tag: noindex, nofollow
+
+/artists/rinku/*
+  X-Robots-Tag: noindex, nofollow
